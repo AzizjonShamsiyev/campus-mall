@@ -8,6 +8,14 @@ spring:
     password: www2005A
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+jpa:
+  hibernate:
+    ddl-auto: update
+  show-sql: true
+  properties:
+    hibernate:
+      format_sql: true
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.campusmall.mall.entity

@@ -2,6 +2,7 @@ package com.campusmall.mall.service;
 
 import com.campusmall.mall.entity.User;
 import com.campusmall.mall.mapper.UserMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,7 +11,16 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserMapper userMapper;
+    @Autowired
+    private UserMapper userMapper;
+
+    //@Autowired
+    //private PasswordEncoder passwordEncoder;
+
+    public void save(User user) {
+     //   user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userMapper.insert(user);
+    }
 
     @Autowired
     public UserServiceImpl(UserMapper userMapper) {

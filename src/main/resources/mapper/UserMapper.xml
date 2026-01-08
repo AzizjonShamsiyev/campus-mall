@@ -6,7 +6,8 @@
 <mapper namespace="com.campusmall.mall.mapper.UserMapper">
 
     <select id="getAll" resultType="com.campusmall.mall.entity.User">
-        SELECT * FROM users
+        SELECT id, username, password, full_name AS fullName, phone, email, role, status
+        FROM users
     </select>
 
     <select id="getById" parameterType="long" resultType="com.campusmall.mall.entity.User">
@@ -14,15 +15,25 @@
     </select>
 
     <insert id="insert" parameterType="com.campusmall.mall.entity.User">
-        INSERT INTO users(username, password, full_name, phone, email, role, status)
-        VALUES(#{username}, #{password}, #{fullName}, #{phone}, #{email}, #{role}, #{status})
+        INSERT INTO users (
+            username, password, full_name, phone, email, role, status
+        ) VALUES (
+                     #{username}, #{password}, #{fullName}, #{phone}, #{email}, #{role}, #{status}
+                 )
     </insert>
 
     <update id="update" parameterType="com.campusmall.mall.entity.User">
         UPDATE users
-        SET username=#{username}, password=#{password}, full_name=#{fullName},
-            phone=#{phone}, email=#{email}, role=#{role}, status=#{status}
-        WHERE id=#{id}
+        <set>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="fullName != null">full_name = #{fullName},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="role != null">role = #{role},</if>
+            <if test="status != null">status = #{status},</if>
+        </set>
+        WHERE id = #{id}
     </update>
 
     <delete id="delete" parameterType="long">

@@ -3,8 +3,9 @@ package com.campusmall.mall.controller;
 import com.campusmall.mall.entity.User;
 import com.campusmall.mall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,15 +29,19 @@ public class UserController {
         return userService.getAll();
     }
 
+    // POST metodi
     @PostMapping
-    public void create(@RequestBody User user) {
-        userService.create(user);
+    public ResponseEntity<?> create(@Valid @RequestBody User user) {
+        userService.save(user);
+        return ResponseEntity.ok().build();
     }
 
+    // PUT metodi (agar bor bo'lsa)
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody User user) {
-        user.setId(id);
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody User user) {
+        user.setId(id);  // Bu qator bo‘lishi shart!
         userService.update(user);
+        return ResponseEntity.ok(user);  // yoki ok().build()
     }
 
     @DeleteMapping("/{id}")

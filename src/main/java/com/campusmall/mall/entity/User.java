@@ -1,12 +1,18 @@
 package com.campusmall.mall.entity;
 
 import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     private Long id;
     private String username;
     private String password;
-    private String fullName;
+    private String fullName;  // Java field camelCase
     private String phone;
     private String email;
     private String role; // ADMIN, USER, CUSTOMER_SERVICE
