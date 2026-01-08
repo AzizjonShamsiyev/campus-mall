@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.campusmall.mall.mapper.OrderItemMapper">
+
+    <resultMap id="OrderItemMap" type="com.campusmall.mall.entity.OrderItem">
+        <id property="id" column="id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="price" column="price"/>
+        <result property="subtotal" column="subtotal"/>
+    </resultMap>
+
+    <select id="getById" resultMap="OrderItemMap">
+        SELECT * FROM order_items WHERE id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="OrderItemMap">
+        SELECT * FROM order_items
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO order_items(order_id, product_id, quantity, price, subtotal)
+        VALUES(#{orderId}, #{productId}, #{quantity}, #{price}, #{subtotal})
+    </insert>
+
+    <update id="update">
+        UPDATE order_items
+        SET order_id=#{orderId}, product_id=#{productId}, quantity=#{quantity},
+            price=#{price}, subtotal=#{subtotal}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM order_items WHERE id=#{id}
+    </delete>
+
+</mapper>
